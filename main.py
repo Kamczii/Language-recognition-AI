@@ -1,0 +1,1 @@
+print("Language recognition project")
