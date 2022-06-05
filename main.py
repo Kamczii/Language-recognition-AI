@@ -12,7 +12,7 @@ sentences = ["Whats up dude? Here we go again so listen to me. I want to be your
              "Vale, puedes quedarte a mi lado, siempre que no hables sobre la tempertura.",
              "Me lo strizzeresti, per favore?",
              "E aí, cara? Aqui vamos nós de novo, então me escute. Eu quero ser seu amigo.",
-             "Как дела, чувак? Здесь мы идем снова, так что слушайте меня. Я хочу быть твоим другом."]
+             "Aqui vamos nós de novo"]
 
 X = vectorizer.fit_transform(sentences)
 predictions = model.predict(X)

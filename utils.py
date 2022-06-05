@@ -1,4 +1,3 @@
-import pickle
 from collections import Counter
 from dataclasses import dataclass
 from typing import List
