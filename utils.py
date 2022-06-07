@@ -5,7 +5,7 @@ from typing import List
 import numpy as np
 from keras import Sequential
 from keras.layers import Dense
-from keras.utils import np_utils
+from keras.utils import np_utils, Sequence
 
 import pandas as pd
 
@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 
 languages = ["eng", "deu", "spa", "ita", "por"]  # wspierane języki
-sentences_by_lang = 20000  # ile zdań bierzemy pod uwagę w poszczególnych językach
+sentences_by_lang = 200000  # ile zdań bierzemy pod uwagę w poszczególnych językach
 trigrams_by_lang = 200  # ile trigramów z danego języka bierzemy pod uwagę
 
 
@@ -181,3 +181,16 @@ def test_model(model: Sequential, encoder: LabelEncoder, X_test: pd.DataFrame, y
     labels = [encoder.classes_[np.argmax(prediction)] for prediction in predictions]
     correct = [encoder.classes_[np.argmax(y)] for y in y_test]
     return accuracy_score(correct, labels)
+
+class DataGenerator(Sequence):
+    def __init__(self, x_set, y_set, batch_size):
+        self.x, self.y = x_set, y_set
+        self.batch_size = batch_size
+
+    def __len__(self):
+        return int(np.ceil(len(self.x) / float(self.batch_size)))
+
+    def __getitem__(self, idx):
+        batch_x = self.x[idx * self.batch_size:(idx + 1) * self.batch_size]
+        batch_y = self.y[idx * self.batch_size:(idx + 1) * self.batch_size]
+        return batch_x, batch_y
