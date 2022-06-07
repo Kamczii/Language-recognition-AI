@@ -13,7 +13,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 
-languages = ["eng", "deu", "spa", "ita", "por"]  # wspierane języki
+languages = ["eng", "deu", "spa", "ita", "por", "fra"]  # wspierane języki
 sentences_by_lang = 200000  # ile zdań bierzemy pod uwagę w poszczególnych językach
 trigrams_by_lang = 200  # ile trigramów z danego języka bierzemy pod uwagę
 
@@ -75,8 +75,8 @@ def get_words_set(df: pd.DataFrame):
         words = Counter()
         series = df[df["lang"] == lang]["sentence"]
         for sentence in series:
-            words.update(sentence.split(" "))
-        words += Counter()  # usuwa elemnty z count=0
+            words.update([w for w in sentence.split(" ") if len(w) > 1])
+
         mc = words.most_common(trigrams_by_lang)
         all_words.update([v[0] for v in mc])
     return all_words
