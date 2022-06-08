@@ -1,6 +1,9 @@
 Deep Neural Network.
 
+
 You pass the sentence, we detect what language is it. 
+
+![](howitwork.gif)
 
 Python used. Many other libraries like keras, sklearn or pandas also included.
 
